@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$USER_HOME$/Library/Caches/Rider2018.1/resharper-host/local/Transient/ReSharperHost/v12/SolutionCaches/_TelegramAdBot.-1357798831.00" t="ExcludeRecursive" />
+    <e p="$PROJECT_DIR$" t="IncludeFlat">
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="TelegramAdBot.DataAccess" t="IncludeRecursive">
+        <e p="Bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp2.1" t="Include">
+              <e p="TelegramAdBot.DataAccess.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="TelegramAdBot.DataAccess.csproj" t="IncludeRecursive" />
+      </e>
+      <e p="TelegramAdBot.DataAccess.MongoDb" t="IncludeRecursive">
+        <e p="Bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp2.1" t="Include">
+              <e p="TelegramAdBot.DataAccess.MongoDb.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="TelegramAdBot.DataAccess.MongoDb.csproj" t="IncludeRecursive" />
+      </e>
+      <e p="TelegramAdBot.Entities" t="IncludeRecursive">
+        <e p="Bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp2.1" t="Include">
+              <e p="TelegramAdBot.Entities.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="TelegramAdBot.Entities.csproj" t="IncludeRecursive" />
+      </e>
+      <e p="TelegramAdBot.Services" t="IncludeRecursive">
+        <e p="Bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp2.1" t="Include">
+              <e p="TelegramAdBot.Services.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="TelegramAdBot.Services.csproj" t="IncludeRecursive" />
+      </e>
+      <e p="TelegramAdBot.Services.Impl" t="IncludeRecursive">
+        <e p="Bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp2.1" t="Include">
+              <e p="TelegramAdBot.Services.Impl.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="TelegramAdBot.Services.Impl.csproj" t="IncludeRecursive" />
+      </e>
+      <e p="TelegramAdBot.sln" t="IncludeFlat" />
+      <e p="TelegramAdBot.ViewModels" t="IncludeRecursive">
+        <e p="Bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp2.1" t="Include">
+              <e p="TelegramAdBot.ViewModels.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="TelegramAdBot.ViewModels.csproj" t="IncludeRecursive" />
+      </e>
+      <e p="TelegramAdBot.WebApi" t="IncludeRecursive">
+        <e p="appsettings.json" t="Include" />
+        <e p="Bin" t="ExcludeRecursive" />
+        <e p="Controllers" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp2.1" t="Include">
+              <e p="TelegramAdBot.WebApi.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="launchSettings.json" t="Include" />
+        </e>
+        <e p="Startup.cs" t="Include" />
+        <e p="TelegramAdBot.WebApi.csproj" t="IncludeRecursive" />
+        <e p="wwwroot" t="Include" />
+      </e>
+    </e>
+  </component>
+</project>
