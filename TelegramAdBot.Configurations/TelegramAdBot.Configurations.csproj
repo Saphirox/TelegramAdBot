@@ -3,6 +3,6 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TelegramAdBot.Entities\TelegramAdBot.Entities.csproj" />
+    <Compile Remove="Class1.cs" />
   </ItemGroup>
 </Project>

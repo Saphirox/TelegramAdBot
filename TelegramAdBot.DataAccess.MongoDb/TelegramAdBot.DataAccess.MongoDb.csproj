@@ -2,4 +2,22 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Extensions.Options">
+      <HintPath>..\..\..\..\..\usr\local\share\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.options\2.1.1\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="MongoCollection.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TelegramAdBot.Configurations\TelegramAdBot.Configurations.csproj" />
+    <ProjectReference Include="..\TelegramAdBot.Entities\TelegramAdBot.Entities.csproj" />
+    <ProjectReference Include="..\TelegramAdBot.DataAccess\TelegramAdBot.DataAccess.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MongoDB.Driver" Version="2.7.0" />
+    <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.3.0" />
+    <PackageReference Include="MongoDB.Bson" Version="2.7.0" />
+  </ItemGroup>
 </Project>

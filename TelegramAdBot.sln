@@ -1,5 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelegramAdBot.WebApi", "TelegramAdBot.WebApi\TelegramAdBot.WebApi.csproj", "{304B5314-AEE4-4CCE-9FAB-F5EDAD7DDC0D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelegramAdBot.DataAccess", "TelegramAdBot.DataAccess\TelegramAdBot.DataAccess.csproj", "{6DDA9F0A-1DDE-4EF1-BD10-784F4A6DFB5D}"
@@ -13,6 +14,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelegramAdBot.Entities", "TelegramAdBot.Entities\TelegramAdBot.Entities.csproj", "{EFAC69ED-A0D0-42A2-831A-615DFC3CA52D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelegramAdBot.ViewModels", "TelegramAdBot.ViewModels\TelegramAdBot.ViewModels.csproj", "{70E8036B-1200-4212-B7A2-217B73390249}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelegramAdBot.IoC", "TelegramAdBot.IoC\TelegramAdBot.IoC.csproj", "{376DAFB6-FE07-4563-988B-54115A0ACD7F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelegramAdBot.Configurations", "TelegramAdBot.Configurations\TelegramAdBot.Configurations.csproj", "{AA7AF353-CBB5-40B1-9587-F831736B3DCA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,5 +53,13 @@ Global
 		{70E8036B-1200-4212-B7A2-217B73390249}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70E8036B-1200-4212-B7A2-217B73390249}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70E8036B-1200-4212-B7A2-217B73390249}.Release|Any CPU.Build.0 = Release|Any CPU
+		{376DAFB6-FE07-4563-988B-54115A0ACD7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{376DAFB6-FE07-4563-988B-54115A0ACD7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{376DAFB6-FE07-4563-988B-54115A0ACD7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{376DAFB6-FE07-4563-988B-54115A0ACD7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA7AF353-CBB5-40B1-9587-F831736B3DCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA7AF353-CBB5-40B1-9587-F831736B3DCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA7AF353-CBB5-40B1-9587-F831736B3DCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA7AF353-CBB5-40B1-9587-F831736B3DCA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
