@@ -16,11 +16,12 @@ namespace TelegramAdBot.IoC
         public static IServiceCollection RegisterConfiguration(this IServiceCollection services, IConfiguration root)
         {
             services.Configure<BotConfiguration>(root.GetSection(nameof(BotConfiguration)));
+            services.Configure<MongoDbSettings>(root.GetSection(nameof(MongoDbSettings)));
             return services;
         }
 
-        public static IDependencyResolver RegisterDependencyResolver(this IServiceCollection serviceCollection)
-        {
+    public static IDependencyResolver RegisterDependencyResolver(this IServiceCollection serviceCollection)
+    {
             var dependencyResolver =
                 new DependencyResolver().RegisterServiceProvider(serviceCollection.BuildServiceProvider());
 

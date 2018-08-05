@@ -3,7 +3,7 @@
 namespace TelegramAdBot.Entities
 {
     [CollectionName("Users")]
-    public class User : Entity
+    public class AppUser : Entity
     {
         public string FirstName { get; set; }
 
@@ -16,5 +16,7 @@ namespace TelegramAdBot.Entities
         public UserRole UserRole { get; set; }
 
         public int TelegramId { get; set; }
+        
+        public string UserName { get; set; }
     }
 }

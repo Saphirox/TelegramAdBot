@@ -6,6 +6,8 @@ namespace TelegramAdBot.Services.Handlers
     {
         string CommandName { get; }
         
-        void HandleMessage(Message message);
+        bool RequireAuthentication { get; }
+        
+        void HandleMessage(Update update);
     }
 }

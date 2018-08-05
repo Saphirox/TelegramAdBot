@@ -5,6 +5,12 @@ namespace TelegramAdBot.Services
 {
     public interface IBotCommandsFactory
     {
-        ICollection<ICommand> GetCommands();
+        IEnumerable<ICommand> GetCommands();
+
+        IEnumerable<string> GetCommandNames();
+
+        IEnumerable<ICallbackQuery> GetCallbacks();
+
+        string GetCommandNameByType(string className);
     }
 }

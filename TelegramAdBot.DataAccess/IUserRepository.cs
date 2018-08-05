@@ -3,7 +3,7 @@ using TelegramAdBot.Entities;
 
 namespace TelegramAdBot.DataAccess
 {
-    public interface IUserRepository : IMongoDbRepository<User>
+    public interface IUserRepository : IMongoDbRepository<AppUser>
     {
         Task<bool> ExistsByTelegramIdAsync(int telegramId);
     }

@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
-using Telegram.Bot.Types.Enums;
-using Telegram.Bot.Types.ReplyMarkups;
+using TelegramAdBot.Entities.Enums;
 using TelegramAdBot.Services.Handlers;
 
 namespace TelegramAdBot.Services.Impl
@@ -22,38 +21,42 @@ namespace TelegramAdBot.Services.Impl
         
         public async Task ExecuteAsync(Update update)
         {
-            var userExist = await _userService.ExistsByTelegramIdAsync(update.Message.From.Id);
-            
-            if (userExist)
+            if (update == null)
             {
-                var commands = _botCommandsFactory.GetCommands();
+                return;
+            }
 
+            if (update.Message != null)
+            {
+                var userExist = await _userService.ExistsByTelegramIdAsync(update.Message.From.Id);
+                var commands = _botCommandsFactory.GetCommands();
+            
                 foreach (ICommand command in commands)
                 {
-                    command.HandleMessage(update.Message);
+                    if (command.CommandName == update.Message.Text && command.RequireAuthentication == userExist)
+                    {
+                        command.HandleMessage(update);
+                        return;
+                    }
+                }
+            } 
+            else if (update.CallbackQuery != null)
+            {
+                var callbacks = _botCommandsFactory.GetCallbacks();
+
+                // TODO: FIX me
+                foreach (var callback in callbacks)
+                {
+                    if (Enum.TryParse(typeof(UserRole), update.CallbackQuery.Data, out var _))
+                    {
+                        await callback.HandleCallbackAsync(update.CallbackQuery);
+                        return;
+                    }
                 }
             }
             else
             {
-                var rkm = new ReplyKeyboardMarkup();
-             
-                rkm.Keyboard = new IEnumerable<KeyboardButton>[]
-                {
-                    new KeyboardButton[]
-                    {
-                        new KeyboardButton()
-                        {
-                            Text = "I wanna promote my product",
-                        },
-                        new KeyboardButton()
-                        {
-                            Text = "I post someone ads",
-                        },
-                    },
-                };
-                
-                await _bot.Client.SendTextMessageAsync(update.Message.Chat.Id, 
-                    "Choose one option", ParseMode.Default, false, false, 0, rkm);
+                //await _bot.Client.SendTextMessageAsync(update.Message.Chat.Id, "Wrong command");
             }
         }
     }

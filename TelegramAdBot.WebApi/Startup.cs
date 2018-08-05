@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TelegramAdBot.Configurations;
 using TelegramAdBot.IoC;
+using TelegramAdBot.Services;
 
 namespace TelegramAdBot.WebApi
 {
@@ -42,13 +43,14 @@ namespace TelegramAdBot.WebApi
             services.AddLogging();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IBotService bot)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
             
+            bot.SetWebhook();
             app.UseMvc();
         }
     }

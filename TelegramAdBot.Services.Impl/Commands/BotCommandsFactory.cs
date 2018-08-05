@@ -8,23 +8,34 @@ namespace TelegramAdBot.Services.Impl.Commands
 {
     public class BotCommandsFactory : IBotCommandsFactory
     {
-        private readonly ICollection<ICommand> _commands;
+        private readonly Lazy<IEnumerable<ICommand>> _commands;
+        private readonly Lazy<IEnumerable<ICallbackQuery>> _handlers;
         
-        public BotCommandsFactory()
+        public BotCommandsFactory(Lazy<IEnumerable<ICommand>> commands, Lazy<IEnumerable<ICallbackQuery>> handlers)
         {
-           ICollection<ICommand> commands = 
-               Assembly.GetExecutingAssembly().GetTypes()
-                   .Select(c => c.IsAssignableFrom(typeof(ICommand)))
-                   .Select(c => Activator.CreateInstance(c.GetType()))
-                   .Cast<ICommand>()
-                   .ToList();
-
             _commands = commands;
+            _handlers = handlers;
         }
         
-        public ICollection<ICommand> GetCommands()
+        public IEnumerable<ICommand> GetCommands()
         {
-            return _commands;
+            return _commands.Value;
         }
+        
+        public IEnumerable<ICallbackQuery> GetCallbacks()
+        {
+            return _handlers.Value;
+        }
+
+        public IEnumerable<string> GetCommandNames()
+        {
+            return _commands.Value.Select(c => c.CommandName);
+        }
+
+        public string GetCommandNameByType(string className)
+        {
+            return _commands.Value.FirstOrDefault(x => x.GetType().Name == className)?.CommandName;
+        }
+        
     }
 }
