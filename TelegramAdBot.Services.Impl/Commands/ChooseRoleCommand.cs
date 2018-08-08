@@ -19,7 +19,7 @@ namespace TelegramAdBot.Services.Impl.Commands
 
         public override bool RequireAuthentication => false;
         
-        protected override IReplyMarkup HandleKeyboard()
+        protected override IReplyMarkup HandleKeyboard(Update update)
         {
             var buttons = new[]
             {
@@ -27,8 +27,7 @@ namespace TelegramAdBot.Services.Impl.Commands
                 {
                     Text = "I wanna promote my product",
                     CallbackData = UserRole.PromoteAd.ToString()
-                    //SwitchInlineQueryCurrentChat = "I wanna promote my product",
-                },
+`                },
                 new InlineKeyboardButton
                 {
                     Text = "I post someone ads",

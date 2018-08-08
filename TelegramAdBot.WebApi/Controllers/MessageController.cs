@@ -8,12 +8,10 @@ namespace TelegramAdBot.WebApi.Controllers
     public class MessageController : Controller
     {
         private readonly IMessageService _messageService;
-        private readonly IBotService _bot;
         
-        public MessageController(IMessageService messageService, IBotService bot)
+        public MessageController(IMessageService messageService)
         {
             this._messageService = messageService;
-            _bot = bot;
         }
         
         [HttpPost]

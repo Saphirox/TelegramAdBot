@@ -1,7 +1,5 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Telegram.Bot.Types;
-using TelegramAdBot.Entities.Enums;
 using TelegramAdBot.Services.Handlers;
 
 namespace TelegramAdBot.Services.Impl
@@ -10,15 +8,14 @@ namespace TelegramAdBot.Services.Impl
     {
         private readonly IBotCommandsFactory _botCommandsFactory;
         private readonly IUserService _userService;
-        private readonly IBotService _bot;
         
-        public MessageService(IBotCommandsFactory botCommandsFactory, IUserService userService, IBotService bot)
+        public MessageService(IBotCommandsFactory botCommandsFactory, IUserService userService)
         {
             _botCommandsFactory = botCommandsFactory;
             _userService = userService;
-            _bot = bot;
         }
         
+        // TODO: -> Need to refactor
         public async Task ExecuteAsync(Update update)
         {
             if (update == null)
@@ -35,8 +32,22 @@ namespace TelegramAdBot.Services.Impl
                 {
                     if (command.CommandName == update.Message.Text && command.RequireAuthentication == userExist)
                     {
+                        // TODO: Create interface as async
                         command.HandleMessage(update);
                         return;
+                    }
+                }
+
+                if (userExist)
+                {
+                    var replyCommands = _botCommandsFactory.GetReplyCommands();
+                    
+                    foreach (var replyCommand in replyCommands)
+                    {
+                        if (replyCommand.IsAppropriate(update.Message))
+                        {
+                            await replyCommand.HandleReply(update.Message);
+                        }
                     }
                 }
             } 
@@ -44,19 +55,17 @@ namespace TelegramAdBot.Services.Impl
             {
                 var callbacks = _botCommandsFactory.GetCallbacks();
 
-                // TODO: FIX me
-                foreach (var callback in callbacks)
+                foreach (ICallbackQuery callback in callbacks)
                 {
-                    if (Enum.TryParse(typeof(UserRole), update.CallbackQuery.Data, out var _))
+                    if (callback.IsAppropriate(update.CallbackQuery))
                     {
                         await callback.HandleCallbackAsync(update.CallbackQuery);
-                        return;
                     }
                 }
             }
             else
             {
-                //await _bot.Client.SendTextMessageAsync(update.Message.Chat.Id, "Wrong command");
+                // TODO: Add own logic
             }
         }
     }

@@ -24,14 +24,14 @@ namespace TelegramAdBot.Services.Impl.Commands
 
         public async void HandleMessage(Update update)
         {
-            var keyboard = HandleKeyboard();
+            var keyboard = HandleKeyboard(update);
                         
             await _bot.Client.SendTextMessageAsync(update.Message.Chat.Id, Text, ParseMode.Default, false, false, 0, keyboard);
 
             Callback(update);
         }
 
-        protected abstract IReplyMarkup HandleKeyboard();
+        protected abstract IReplyMarkup HandleKeyboard(Update update);
 
         protected virtual void Callback(Update update)
         {

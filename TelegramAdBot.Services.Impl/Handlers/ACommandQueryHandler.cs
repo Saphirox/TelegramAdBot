@@ -16,7 +16,9 @@ namespace TelegramAdBot.Services.Impl.Handlers
         protected abstract string Text { get; }
 
         protected abstract void Callback(CallbackQuery callbackQuery);
-      
+
+        public abstract bool IsAppropriate(CallbackQuery query);
+
         public async Task HandleCallbackAsync(CallbackQuery update)
         {
             Callback(update);

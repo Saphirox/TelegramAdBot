@@ -25,11 +25,15 @@ namespace TelegramAdBot.IoC
             services.AddTransient<IUserService, UserService>();
 
             services.AddTransient<ICommand, ChooseRoleCommand>();
+            services.AddTransient<ICommand, CreateQueryReply>();
+            
             services.AddTransient<ICallbackQuery, ChooseRoleHandler>();
 
-           // services.AddTransient<Lazy<ICollection<ICommand>>(typeof(),(r) => new Lazy<>(r.GetServices<ICommand>()));
+            services.AddTransient<IReplyCommand, CreateQueryCommand>();
+
             services.AddTransient((r) => new Lazy<IEnumerable<ICommand>>(r.GetServices<ICommand>()));
             services.AddTransient((r) => new Lazy<IEnumerable<ICallbackQuery>>(r.GetServices<ICallbackQuery>()));
+            services.AddTransient((r) => new Lazy<IEnumerable<IReplyCommand>>(r.GetServices<IReplyCommand>()));
             return services;
         }
     }

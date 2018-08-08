@@ -41,5 +41,10 @@ namespace TelegramAdBot.Services.Impl.Handlers
                 _text = "Internal server error";
             }
         }
+
+        public override bool IsAppropriate(CallbackQuery query)
+        {
+            return Enum.TryParse(typeof(UserRole), query.Data, out var _);
+        }
     }
 }

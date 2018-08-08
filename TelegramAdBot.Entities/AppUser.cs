@@ -1,4 +1,5 @@
-﻿using TelegramAdBot.Entities.Enums;
+﻿using System.Collections.Generic;
+using TelegramAdBot.Entities.Enums;
 
 namespace TelegramAdBot.Entities
 {
@@ -18,5 +19,7 @@ namespace TelegramAdBot.Entities
         public int TelegramId { get; set; }
         
         public string UserName { get; set; }
+
+        public ICollection<ChannelQuery> Queries { get; set; }
     }
 }

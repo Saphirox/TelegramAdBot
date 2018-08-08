@@ -10,11 +10,13 @@ namespace TelegramAdBot.Services.Impl.Commands
     {
         private readonly Lazy<IEnumerable<ICommand>> _commands;
         private readonly Lazy<IEnumerable<ICallbackQuery>> _handlers;
+        private readonly Lazy<IEnumerable<IReplyCommand>> _replyCommands;
         
-        public BotCommandsFactory(Lazy<IEnumerable<ICommand>> commands, Lazy<IEnumerable<ICallbackQuery>> handlers)
+        public BotCommandsFactory(Lazy<IEnumerable<ICommand>> commands, Lazy<IEnumerable<ICallbackQuery>> handlers, Lazy<IEnumerable<IReplyCommand>> replyCommands)
         {
             _commands = commands;
             _handlers = handlers;
+            _replyCommands = replyCommands;
         }
         
         public IEnumerable<ICommand> GetCommands()
@@ -36,6 +38,10 @@ namespace TelegramAdBot.Services.Impl.Commands
         {
             return _commands.Value.FirstOrDefault(x => x.GetType().Name == className)?.CommandName;
         }
-        
+
+        public IEnumerable<IReplyCommand> GetReplyCommands()
+        {
+            return _replyCommands.Value;
+        }
     }
 }

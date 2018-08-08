@@ -11,6 +11,8 @@ namespace TelegramAdBot.Services
 
         IEnumerable<ICallbackQuery> GetCallbacks();
 
+        IEnumerable<IReplyCommand> GetReplyCommands();
+
         string GetCommandNameByType(string className);
     }
 }

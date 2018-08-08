@@ -5,6 +5,8 @@ namespace TelegramAdBot.Services.Handlers
 {
     public interface ICallbackQuery
     {
-        Task HandleCallbackAsync(CallbackQuery update);
+        bool IsAppropriate(CallbackQuery query);
+        
+        Task HandleCallbackAsync(CallbackQuery query);
     }
 }
