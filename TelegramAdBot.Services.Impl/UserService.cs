@@ -16,14 +16,14 @@ namespace TelegramAdBot.Services.Impl
             _userRepository = userRepository;
         }
 
-        public Task<bool> ExistsByTelegramIdAsync(int telegramId)
-        {
-            return _userRepository.ExistsByTelegramIdAsync(telegramId);
-        }
-
         public async Task<AppUser> CreateUser(User user, UserRole role)
         {
             return await _userRepository.AddAsync(user.ToEntity(role));
+        }
+
+        public async Task<AppUser> GetUserByTelegramIdAsync(int telegramId)
+        {
+            return await _userRepository.GetUserByTelegramIdAsync(telegramId);
         }
     }
 }

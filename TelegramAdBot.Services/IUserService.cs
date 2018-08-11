@@ -7,8 +7,8 @@ namespace TelegramAdBot.Services
 {
     public interface IUserService
     {
-        Task<bool> ExistsByTelegramIdAsync(int telegramId);
-        
         Task<AppUser> CreateUser(User user, UserRole role);
+        
+        Task<AppUser> GetUserByTelegramIdAsync(int telegramId);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using TelegramAdBot.Services.Handlers;
+using TelegramAdBot.Services.Impl.Helpers;
 
 namespace TelegramAdBot.Services.Impl
 {
@@ -25,12 +26,13 @@ namespace TelegramAdBot.Services.Impl
 
             if (update.Message != null)
             {
-                var userExist = await _userService.ExistsByTelegramIdAsync(update.Message.From.Id);
+                CurrentUser.SetInstance(await _userService.GetUserByTelegramIdAsync(update.Message.From.Id));
+                
                 var commands = _botCommandsFactory.GetCommands();
             
                 foreach (ICommand command in commands)
                 {
-                    if (command.CommandName == update.Message.Text && command.RequireAuthentication == userExist)
+                    if (command.CommandName == update.Message.Text && command.RequireAuthentication == CurrentUser.Exists())
                     {
                         // TODO: Create interface as async
                         command.HandleMessage(update);
@@ -38,7 +40,7 @@ namespace TelegramAdBot.Services.Impl
                     }
                 }
 
-                if (userExist)
+                if (CurrentUser.Exists())
                 {
                     var replyCommands = _botCommandsFactory.GetReplyCommands();
                     

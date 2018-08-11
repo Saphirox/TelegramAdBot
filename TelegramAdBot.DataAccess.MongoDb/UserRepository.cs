@@ -25,7 +25,12 @@ namespace TelegramAdBot.DataAccess.MongoDb
 
         public async Task<bool> ExistsByTelegramIdAsync(int telegramId)
         {
-            return (await this.collection.FindAsync(c => c.TelegramId == telegramId)).Any();
+            return (await GetUserByTelegramIdAsync(telegramId)) != null;
+        }
+
+        public async Task<AppUser> GetUserByTelegramIdAsync(int telegramId)
+        {
+            return (await this.collection.FindAsync(c => c.TelegramId == telegramId)).SingleOrDefault();
         }
     }
 }

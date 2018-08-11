@@ -19,6 +19,9 @@
       </e>
       <e p="TelegramAdBot.DataAccess" t="IncludeRecursive">
         <e p="Bin" t="ExcludeRecursive" />
+        <e p="IChannelParameterRepository.cs" t="Include" />
+        <e p="IChannelQueryRepository.cs" t="Include" />
+        <e p="IChannelTopicRepository.cs" t="Include" />
         <e p="IMongoDbRepository.cs" t="Include" />
         <e p="IRepositoryBase.cs" t="Include" />
         <e p="IUserRepository.cs" t="Include" />
@@ -33,6 +36,8 @@
       </e>
       <e p="TelegramAdBot.DataAccess.MongoDb" t="IncludeRecursive">
         <e p="Bin" t="ExcludeRecursive" />
+        <e p="ChannelParameterRepository.cs" t="Include" />
+        <e p="ChannelQueryRepository.cs" t="Include" />
         <e p="MongoDbRepository.cs" t="Include" />
         <e p="MongoUtil.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
@@ -48,6 +53,9 @@
       <e p="TelegramAdBot.Entities" t="IncludeRecursive">
         <e p="AppUser.cs" t="Include" />
         <e p="Bin" t="ExcludeRecursive" />
+        <e p="ChannelParameter.cs" t="Include" />
+        <e p="ChannelQuery.cs" t="Include" />
+        <e p="ChannelTopic.cs" t="Include" />
         <e p="CollectionName.cs" t="Include" />
         <e p="Entity.cs" t="Include" />
         <e p="Enums" t="Include">
@@ -89,6 +97,8 @@
         <e p="IBotCommandsFactory.cs" t="Include" />
         <e p="IBotService.cs" t="Include" />
         <e p="IMessageService.cs" t="Include" />
+        <e p="IParameterService.cs" t="Include" />
+        <e p="IReplyCommand.cs" t="Include" />
         <e p="IUserService.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -106,14 +116,27 @@
           <e p="AKeyboardCommand.cs" t="Include" />
           <e p="BotCommandsFactory.cs" t="Include" />
           <e p="ChooseRoleCommand.cs" t="Include" />
+          <e p="CreateQueryCommand.cs" t="Include" />
+          <e p="CreateQueryReply.cs" t="Include" />
         </e>
         <e p="Handlers" t="Include">
           <e p="ACommandQueryHandler.cs" t="Include" />
+          <e p="ChooseParameterCommand.cs" t="Include" />
           <e p="ChooseRoleHandler.cs" t="Include" />
+        </e>
+        <e p="Helpers" t="Include">
+          <e p="CallbackDataBuilder.cs" t="Include" />
+          <e p="CommandHelpers.cs" t="Include" />
+          <e p="CurrentUser.cs" t="Include" />
+          <e p="Option.cs" t="Include" />
+          <e p="OptionResult.cs" t="Include" />
+          <e p="ServiceHelper.cs" t="Include" />
+          <e p="TelegramExtentions.cs" t="Include" />
         </e>
         <e p="Mappers" t="Include">
           <e p="EntityMapperExtention.cs" t="Include" />
         </e>
+        <e p="MessageConstants.cs" t="Include" />
         <e p="MessageService.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -122,6 +145,7 @@
             </e>
           </e>
         </e>
+        <e p="ParameterService.cs" t="Include" />
         <e p="TelegramAdBot.Services.Impl.csproj" t="IncludeRecursive" />
         <e p="UserService.cs" t="Include" />
       </e>

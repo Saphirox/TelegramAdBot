@@ -25,7 +25,7 @@ namespace TelegramAdBot.Services.Impl.Handlers
 
             try
             {
-                var userExist = await _userService.ExistsByTelegramIdAsync(callbackQuery.From.Id);
+                var userExist = await _userService.GetUserByTelegramIdAsync(callbackQuery.From.Id) != null;
             
                 if (!userExist)
                 {

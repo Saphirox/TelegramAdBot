@@ -27,7 +27,7 @@ namespace TelegramAdBot.Services.Impl.Commands
                 {
                     Text = "I wanna promote my product",
                     CallbackData = UserRole.PromoteAd.ToString()
-`                },
+                },
                 new InlineKeyboardButton
                 {
                     Text = "I post someone ads",

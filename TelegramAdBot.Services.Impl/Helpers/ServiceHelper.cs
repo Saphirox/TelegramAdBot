@@ -6,9 +6,9 @@ namespace TelegramAdBot.Services.Impl.Helpers
 {
     public class ServiceHelper
     {
-        private readonly ILogger _logger;
+        private readonly ILogger<ServiceHelper> _logger;
         
-        public ServiceHelper(ILogger logger)
+        public ServiceHelper(ILogger<ServiceHelper> logger)
         {
             this._logger = logger;
         }
@@ -20,6 +20,24 @@ namespace TelegramAdBot.Services.Impl.Helpers
             try
             {
                 result.Result = action();
+                result.Status = OptionResult.Some;
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e.Message, e);
+                result.Status = OptionResult.None;
+            }
+
+            return result;
+        }
+        
+        public Option TryCatch(Action action)
+        {
+            var result = new Option();
+            
+            try
+            {
+                action();
                 result.Status = OptionResult.Some;
             }
             catch (Exception e)

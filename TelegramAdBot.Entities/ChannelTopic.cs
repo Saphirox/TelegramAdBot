@@ -7,6 +7,6 @@
 
         public bool IsUserDefined { get; set; }
 
-        public bool IsChecked { get; set; }        
+        public bool IsChecked { get; set; }
     }
 }
