@@ -7,6 +7,6 @@ namespace TelegramAdBot.Services.Handlers
     {
         bool IsAppropriate(CallbackQuery query);
         
-        Task HandleCallbackAsync(CallbackQuery query);
+        Task HandleCallbackAsync(CallbackQuery cquery);
     }
 }

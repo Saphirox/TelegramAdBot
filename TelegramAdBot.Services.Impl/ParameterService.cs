@@ -9,6 +9,9 @@ namespace TelegramAdBot.Services.Impl
 {
     public class ParameterService : IParameterService
     {
+        private const string callbackDataPattern = "{0} {1} {2}";
+        private const string nextParameterPattern = "{0} {1}";
+        
         private readonly IChannelParameterRepository _cpr;
         private readonly ServiceHelper _serviceHelper;
         private readonly IBotService _bot;
@@ -24,12 +27,10 @@ namespace TelegramAdBot.Services.Impl
         {
             var parameter = await _serviceHelper.TryCatchAsync(async () => await _cpr.GetByPriorityAsync(priority));
 
-            const string callbackDataPattern = "{0} {1} {2}";
-            
             var topics = parameter.Result.ChannelTopics.Select(c => new InlineKeyboardButton()
             {
                 CallbackData = SerializeDto.SerializeFrom(
-                    "Parameter", 
+                    CallbackConstants.Topic,
                     string.Format(callbackDataPattern, queryName, parameter.Result.Id, c.Name)).Value,
                 Text = c.Name
             })
@@ -72,8 +73,9 @@ namespace TelegramAdBot.Services.Impl
                 new InlineKeyboardButton 
                 { 
                     Text = "Next parameter", 
-                    CallbackData = CallbackDataBuilderExtentions.Serialize("NextParameter", 
-                        string.Format("{0} {1}", queryName, nextPriority.ToString())) 
+                    CallbackData = CallbackDataBuilderExtentions.Serialize(
+                        CallbackConstants.NextParameter, 
+                        string.Format(nextParameterPattern, queryName, nextPriority.ToString())) 
                 }
             });
             

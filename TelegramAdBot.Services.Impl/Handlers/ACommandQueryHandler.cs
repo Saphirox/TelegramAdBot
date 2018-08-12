@@ -19,11 +19,11 @@ namespace TelegramAdBot.Services.Impl.Handlers
 
         public abstract bool IsAppropriate(CallbackQuery query);
 
-        public async Task HandleCallbackAsync(CallbackQuery update)
+        public async Task HandleCallbackAsync(CallbackQuery cquery)
         {
-            Callback(update);
+            Callback(cquery);
             
-            await _bot.Client.SendTextMessageAsync(update.Message.Chat.Id, Text);
+            await _bot.Client.SendTextMessageAsync(cquery.Message.Chat.Id, Text);
         }
     }
 }

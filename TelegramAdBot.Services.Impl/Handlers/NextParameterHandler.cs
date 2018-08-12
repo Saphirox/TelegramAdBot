@@ -22,16 +22,16 @@ namespace TelegramAdBot.Services.Impl.Handlers
            return dto.Key == "NextParameter";
         }
 
-        public async Task HandleCallbackAsync(CallbackQuery query)
+        public async Task HandleCallbackAsync(CallbackQuery cquery)
         {
-            var dto = new SerializeDto(query).Deserialize();
+            var dto = new SerializeDto(cquery).Deserialize();
 
             var tokens = dto.Value.Split(" ");
 
             var queryName = tokens[0];
             var priority = int.Parse(tokens[1]);
             
-            await _parameterService.SendAsync(query.CurrentChatId(), queryName, priority);
+            await _parameterService.SendAsync(cquery.CurrentChatId(), queryName, priority);
         }
     }
 }

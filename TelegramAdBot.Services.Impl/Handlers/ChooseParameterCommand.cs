@@ -1,7 +1,10 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using TelegramAdBot.DataAccess;
+using TelegramAdBot.Entities;
 using TelegramAdBot.Services.Handlers;
 using TelegramAdBot.Services.Impl.Helpers;
 
@@ -26,36 +29,61 @@ namespace TelegramAdBot.Services.Impl.Handlers
         
         public bool IsAppropriate(CallbackQuery query)
         {
-            return Model.CanSerialize(query);
+            return new SerializeDto(query).Deserialize().Key == CallbackConstants.Topic;
         }
 
-        public async Task HandleCallbackAsync(CallbackQuery query)
+        public async Task HandleCallbackAsync(CallbackQuery cquery)
         {
-            var dto = new SerializeDto(query).Deserialize();
+            var dto = new SerializeDto(cquery).Deserialize();
 
             var data = dto.Value.Split(" ");
 
-            var parameterId = data[1];
             var queryName = data[0];
-            var topicName = data[2];
+            var parameterId = data[1];
 
-            var quer = CurrentUser.Instance.Queries.Single(c => c.Name == queryName);
-
-            var @params = quer.ChannelParameters.Single(c => c.Id == parameterId);
+            var indexOf = dto.Value.IndexOf(parameterId) + parameterId.Length + 1;
             
-            var topic = @params.ChannelTopics.FirstOrDefault(l => topicName == l.Name);
+            var topicName = dto.Value.Substring(indexOf, dto.Value.Length - indexOf);
 
-            if (topic != null)
+            var queries = CurrentUser.Instance.Queries.Single(c => c.Name == queryName);
+
+            if (queries.ChannelParameters == null)
             {
-                var newTopics = @params.ChannelTopics.Where(c => c.Name != topicName).ToList();
+                var @params = queries.ChannelParameters = new List<ChannelParameter>();
 
-                @params.ChannelTopics = newTopics;
+                var entityParam = await _serviceHelper.TryCatchAsync(async () =>await _cpr.GetByIdAsync(parameterId));
+
+                if (entityParam.Status == OptionResult.None)
+                {
+                    throw new ArgumentException(nameof(OptionResult));
+                }
+
+                var param = new ChannelParameter()
+                {
+                    Name = entityParam.Result.Name,
+                    ChannelTopics = entityParam.Result.ChannelTopics.Where(c => c.Name == topicName).ToList()
+                };
+                
+                @params.Add(param);
             }
             else
             {
-                var topicEntity = (await _cpr.GetByIdAsync(parameterId)).ChannelTopics.SingleOrDefault(c => c.Name == topicName);
+                var @params = queries.ChannelParameters.Single(c => c.Id == parameterId);
+            
+                var topic = @params.ChannelTopics.FirstOrDefault(l => topicName == l.Name);
+
+                if (topic != null)
+                {
+                    var newTopics = @params.ChannelTopics.Where(c => c.Name != topicName).ToList();
+
+                    @params.ChannelTopics = newTopics;
+                }
+                else
+                {
+                    var topicEntity = (await _cpr.GetByIdAsync(parameterId)).ChannelTopics.SingleOrDefault(c => c.Name == topicName);
                 
-                @params.ChannelTopics.Add(topicEntity);
+                    @params.ChannelTopics.Add(topicEntity);
+                }
             }
 
             var result = _serviceHelper.TryCatch(() => _userRepository.UpdateAsync(CurrentUser.Instance)).Status;
@@ -63,24 +91,12 @@ namespace TelegramAdBot.Services.Impl.Handlers
             switch(result)
             {
                 case OptionResult.None:
-                    await _bot.Client.SendTextMessageAsync(query.Message.Chat.Id, "Error was hapend");                   
+                    await _bot.Client.SendTextMessageAsync(cquery.Message.Chat.Id, "Error was hapend");                   
                     break;
                 case OptionResult.Some:
-                    await _parameterService.SendAsync(query.Message.CurrentChatId(), queryName);
+                    await _parameterService.SendAsync(cquery.Message.CurrentChatId(), queryName);
                     break;
             }
-        }
-        
-        private class Model
-        {
-            public string QueryId { get; set; }
-
-            public string ParameterId { get; set; }
-            
-            public string TopicId { get; set; }
-
-            public static bool CanSerialize(CallbackQuery query)
-              =>  new SerializeDto(query).Deserialize().Value.Split(" ").Length == 3;
         }
     }
 }

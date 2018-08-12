@@ -23,11 +23,12 @@ namespace TelegramAdBot.Services.Impl
             {
                 return;
             }
+            
 
             if (update.Message != null)
             {
                 CurrentUser.SetInstance(await _userService.GetUserByTelegramIdAsync(update.Message.From.Id));
-                
+
                 var commands = _botCommandsFactory.GetCommands();
             
                 foreach (ICommand command in commands)
@@ -55,6 +56,8 @@ namespace TelegramAdBot.Services.Impl
             } 
             else if (update.CallbackQuery != null)
             {
+                CurrentUser.SetInstance(await _userService.GetUserByTelegramIdAsync(update.CallbackQuery.From.Id));
+                
                 var callbacks = _botCommandsFactory.GetCallbacks();
 
                 foreach (ICallbackQuery callback in callbacks)

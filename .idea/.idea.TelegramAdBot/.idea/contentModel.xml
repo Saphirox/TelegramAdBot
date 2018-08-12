@@ -111,6 +111,7 @@
       <e p="TelegramAdBot.Services.Impl" t="IncludeRecursive">
         <e p="Bin" t="ExcludeRecursive" />
         <e p="BotService.cs" t="Include" />
+        <e p="CallbackConstants.cs" t="Include" />
         <e p="Commands" t="Include">
           <e p="AKeyboardCommand.cs" t="Include" />
           <e p="BotCommandsFactory.cs" t="Include" />
