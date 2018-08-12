@@ -2,6 +2,6 @@
 {
     public interface IParameterService
     {
-        void SendAsync(long chatId, string queryId);
+        void SendAsync(long chatId, string queryId, int priority = 1);
     }
 }

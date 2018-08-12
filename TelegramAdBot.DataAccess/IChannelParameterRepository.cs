@@ -6,5 +6,7 @@ namespace TelegramAdBot.DataAccess
     public interface IChannelParameterRepository : IMongoDbRepository<ChannelParameter>
     {
         Task<ChannelParameter> GetByPriorityAsync(int firstPriority);
+
+        Task<long> GetMinPriority();
     }
 }

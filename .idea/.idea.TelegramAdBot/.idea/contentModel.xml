@@ -21,7 +21,6 @@
         <e p="Bin" t="ExcludeRecursive" />
         <e p="IChannelParameterRepository.cs" t="Include" />
         <e p="IChannelQueryRepository.cs" t="Include" />
-        <e p="IChannelTopicRepository.cs" t="Include" />
         <e p="IMongoDbRepository.cs" t="Include" />
         <e p="IRepositoryBase.cs" t="Include" />
         <e p="IUserRepository.cs" t="Include" />

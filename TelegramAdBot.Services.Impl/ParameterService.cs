@@ -19,20 +19,17 @@ namespace TelegramAdBot.Services.Impl
             _bot = bot;
         }
 
-        public async void SendAsync(long chatId, string queryId)
+        public async void SendAsync(long chatId, string queryId, int priority)
         {
-            const int firstPriority = 1;
-                
-            var parameter = await _serviceHelper.TryCatchAsync(async () => await _cpr.GetByPriorityAsync(firstPriority));
+            var parameter = await _serviceHelper.TryCatchAsync(async () => await _cpr.GetByPriorityAsync(priority));
 
-            
             const string callbackDataPattern = "{0} {1} {2}";
             
             var topics = parameter.Result.ChannelTopics.Select(c => new InlineKeyboardButton()
             {
                 CallbackData = SerializeDto.SerializeFrom(
                     "Parameter", 
-                    string.Format(callbackDataPattern, queryId, parameter, c.Id)).Value,
+                    string.Format(callbackDataPattern, queryId, parameter.Result.Id, c.Name)).Value,
                 Text = c.Name
             })
                 .ToList();
@@ -43,27 +40,27 @@ namespace TelegramAdBot.Services.Impl
             
             while (true)
             {
-                if (topics.IndexOf(topics[counter])  == -1)
+                if (counter >= topics.Count)
                     break;
 
                 var s1 = topics[counter];
                 counter++;
                 
-                var s2 = topics[counter];
-                counter++;
-
-                if (topics.IndexOf(topics[counter]) == -1)
+                if (counter >= topics.Count)
                 {
                     linkedList.Add(new [] { s1 });
                     break;
                 }
-                else
-                {
-                    linkedList.Add(new [] { s1, s2 });
-                }
+                
+                var s2 = topics[counter];
+                counter++;
+                
+                linkedList.Add(new [] { s1, s2 });
             }
 
-            var nextPriority = firstPriority + 1;
+            var minPriority = await _cpr.GetMinPriority();
+            
+            var nextPriority =  minPriority + 1;
             
             linkedList.Add(new [] {
                 new InlineKeyboardButton 

@@ -12,16 +12,16 @@ namespace TelegramAdBot.Services.Impl.Handlers
         private readonly IBotService _bot;
         private readonly IUserRepository _userRepository;
         private readonly ServiceHelper _serviceHelper;
-        private readonly IChannelTopicRepository _ctr;
         private readonly IParameterService _parameterService;
+        private readonly IChannelParameterRepository _cpr;
         
-        public ChooseParameterHandler(IBotService bot, IUserRepository userRepository, ServiceHelper serviceHelper, IChannelTopicRepository ctr, IParameterService parameterService)
+        public ChooseParameterHandler(IBotService bot, IUserRepository userRepository, ServiceHelper serviceHelper, IParameterService parameterService, IChannelParameterRepository cpr)
         {
             _bot = bot;
             _userRepository = userRepository;
             _serviceHelper = serviceHelper;
-            _ctr = ctr;
             _parameterService = parameterService;
+            _cpr = cpr;
         }
         
         public bool IsAppropriate(CallbackQuery query)
@@ -33,27 +33,27 @@ namespace TelegramAdBot.Services.Impl.Handlers
         {
             var dto = new SerializeDto(query).Deserialize();
 
-            var s = dto.Value.Split(" ");
+            var data = dto.Value.Split(" ");
 
-            var paramaterId = s[1];
-            var queryId = s[0];
-            var topicId = s[2];
+            var parameterId = data[1];
+            var queryName = data[0];
+            var topicName = data[2];
 
-            var quer = CurrentUser.Instance.Queries.Single(c => c.Id == queryId);
+            var quer = CurrentUser.Instance.Queries.Single(c => c.Name == queryName);
 
-            var @params = quer.ChannelParameters.Single(c => c.Id == paramaterId);
+            var @params = quer.ChannelParameters.Single(c => c.Id == parameterId);
             
-            var topic = @params.ChannelTopics.FirstOrDefault(l => topicId == l.Id);
+            var topic = @params.ChannelTopics.FirstOrDefault(l => topicName == l.Name);
 
             if (topic != null)
             {
-                var newTopics = @params.ChannelTopics.Where(c => c.Id != topicId).ToList();
+                var newTopics = @params.ChannelTopics.Where(c => c.Name != topicName).ToList();
 
                 @params.ChannelTopics = newTopics;
             }
             else
             {
-                var topicEntity = await _ctr.GetByIdAsync(topicId);
+                var topicEntity = (await _cpr.GetByIdAsync(parameterId)).ChannelTopics.SingleOrDefault(c => c.Name == topicName);
                 
                 @params.ChannelTopics.Add(topicEntity);
             }
@@ -66,7 +66,7 @@ namespace TelegramAdBot.Services.Impl.Handlers
                     await _bot.Client.SendTextMessageAsync(query.Message.Chat.Id, "Error was hapend");                   
                     break;
                 case OptionResult.Some:
-                    _parameterService.SendAsync(query.Message.CurrentChatId());
+                    _parameterService.SendAsync(query.Message.CurrentChatId(), queryName);
                     break;
             }
         }
