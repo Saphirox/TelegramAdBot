@@ -66,7 +66,7 @@ namespace TelegramAdBot.Services.Impl.Handlers
                     await _bot.Client.SendTextMessageAsync(query.Message.Chat.Id, "Error was hapend");                   
                     break;
                 case OptionResult.Some:
-                    _parameterService.SendAsync(query.Message.CurrentChatId(), queryName);
+                    await _parameterService.SendAsync(query.Message.CurrentChatId(), queryName);
                     break;
             }
         }

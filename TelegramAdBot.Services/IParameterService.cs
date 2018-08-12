@@ -1,7 +1,9 @@
-﻿namespace TelegramAdBot.Services
+﻿using System.Threading.Tasks;
+
+namespace TelegramAdBot.Services
 {
     public interface IParameterService
     {
-        void SendAsync(long chatId, string queryId, int priority = 1);
+        Task SendAsync(long chatId, string queryName, int priority = 1);
     }
 }

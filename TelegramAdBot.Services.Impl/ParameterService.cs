@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Telegram.Bot.Types.ReplyMarkups;
 using TelegramAdBot.DataAccess;
 using TelegramAdBot.Services.Impl.Helpers;
@@ -19,7 +20,7 @@ namespace TelegramAdBot.Services.Impl
             _bot = bot;
         }
 
-        public async void SendAsync(long chatId, string queryId, int priority)
+        public async Task SendAsync(long chatId, string queryName, int priority)
         {
             var parameter = await _serviceHelper.TryCatchAsync(async () => await _cpr.GetByPriorityAsync(priority));
 
@@ -29,7 +30,7 @@ namespace TelegramAdBot.Services.Impl
             {
                 CallbackData = SerializeDto.SerializeFrom(
                     "Parameter", 
-                    string.Format(callbackDataPattern, queryId, parameter.Result.Id, c.Name)).Value,
+                    string.Format(callbackDataPattern, queryName, parameter.Result.Id, c.Name)).Value,
                 Text = c.Name
             })
                 .ToList();
@@ -60,13 +61,19 @@ namespace TelegramAdBot.Services.Impl
 
             var minPriority = await _cpr.GetMinPriority();
             
-            var nextPriority =  minPriority + 1;
+            var nextPriority = priority + 1;
+
+            if (nextPriority > minPriority)
+            {
+                nextPriority = 1;
+            }
             
             linkedList.Add(new [] {
                 new InlineKeyboardButton 
                 { 
                     Text = "Next parameter", 
-                    CallbackData = CallbackDataBuilderExtentions.Serialize("NextParameter", nextPriority.ToString()) 
+                    CallbackData = CallbackDataBuilderExtentions.Serialize("NextParameter", 
+                        string.Format("{0} {1}", queryName, nextPriority.ToString())) 
                 }
             });
             

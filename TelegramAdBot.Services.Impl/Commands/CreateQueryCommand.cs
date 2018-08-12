@@ -23,7 +23,7 @@ namespace TelegramAdBot.Services.Impl.Commands
             _userRepository = userRepository;
         }
 
-        public Task HandleReply(Message message)
+        public async Task HandleReply(Message message)
         {
             var replyMessage = message.ReplyToMessage.Text;
 
@@ -43,14 +43,12 @@ namespace TelegramAdBot.Services.Impl.Commands
                 _serviceHelper
                     .TryCatch(() => _userRepository.UpdateAsync(user));
 
-                _parameterService.SendAsync(message.CurrentChatId(), queryModel.Name);
+                await _parameterService.SendAsync(message.CurrentChatId(), queryModel.Name);
             }
             else
             {
                 throw new ArgumentException(nameof(message));
             }
-
-            return Task.CompletedTask;
         }
 
         public bool IsAppropriate(Message message)

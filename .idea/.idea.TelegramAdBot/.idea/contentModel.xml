@@ -122,6 +122,7 @@
           <e p="ACommandQueryHandler.cs" t="Include" />
           <e p="ChooseParameterCommand.cs" t="Include" />
           <e p="ChooseRoleHandler.cs" t="Include" />
+          <e p="NextParameterHandler.cs" t="Include" />
         </e>
         <e p="Helpers" t="Include">
           <e p="CallbackDataBuilder.cs" t="Include" />

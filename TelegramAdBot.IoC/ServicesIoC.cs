@@ -32,6 +32,7 @@ namespace TelegramAdBot.IoC
             
             services.AddTransient<ICallbackQuery, ChooseRoleHandler>();
             services.AddTransient<ICallbackQuery, ChooseParameterHandler>();
+            services.AddTransient<ICallbackQuery, NextParameterHandler>();
 
             services.AddTransient<IReplyCommand, CreateQueryCommand>();
 

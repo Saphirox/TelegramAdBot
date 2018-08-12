@@ -8,5 +8,10 @@ namespace TelegramAdBot.Services.Impl.Helpers
         {
             return message.Chat.Id;
         }
+
+        public static long CurrentChatId(this CallbackQuery query)
+        {
+            return query.Message.CurrentChatId();
+        }
     }
 }
